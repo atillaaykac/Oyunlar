@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Oyunlar</title>
+  <style>
+    body{font-family:system-ui,Arial;margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;background:#0b0f18;color:#fff}
+    .wrap{width:min(900px,92vw)}
+    h1{margin:0 0 14px;font-size:32px}
+    p{margin:0 0 22px;color:#cbd5e1}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+    a{display:block;padding:18px;border-radius:16px;background:#111827;color:#fff;text-decoration:none;border:1px solid #243043}
+    a:hover{transform:translateY(-2px);transition:.15s}
+    .tag{display:inline-block;margin-top:10px;font-size:12px;color:#9ca3af}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Oyunlar</h1>
+    <p>Bir oyun seç:</p>
+    <div class="grid">
+      <a href="./edebiyat/">
+        Edebiyat Oyunu
+        <div class="tag">Klasör: /edebiyat</div>
+      </a>
+      <a href="./tarih/">
+        Tarih Oyunu
+        <div class="tag">Klasör: /tarih</div>
+      </a>
+      <a href="./biyoloji/">
+        Biyoloji Oyunu
+        <div class="tag">Klasör: /biyoloji</div>
+      </a>
+    </div>
+  </div>
+</body>
+</html>
