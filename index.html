@@ -1,38 +1,137 @@
 <!doctype html>
 <html lang="tr">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Oyunlar</title>
-  <style>
-    body{font-family:system-ui,Arial;margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;background:#0b0f18;color:#fff}
-    .wrap{width:min(900px,92vw)}
-    h1{margin:0 0 14px;font-size:32px}
-    p{margin:0 0 22px;color:#cbd5e1}
-    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
-    a{display:block;padding:18px;border-radius:16px;background:#111827;color:#fff;text-decoration:none;border:1px solid #243043}
-    a:hover{transform:translateY(-2px);transition:.15s}
-    .tag{display:inline-block;margin-top:10px;font-size:12px;color:#9ca3af}
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Oyunlar</title>
+
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;
+  min-height:100vh;
+  font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;
+  background:
+    radial-gradient(1200px 600px at 10% -10%, #7c3aed33, transparent 60%),
+    radial-gradient(1000px 600px at 90% 10%, #22c55e33, transparent 60%),
+    #0b0f18;
+  color:#e5e7eb;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.container{
+  width:min(1000px,92vw);
+}
+
+h1{
+  text-align:center;
+  font-size:42px;
+  margin-bottom:10px;
+}
+
+.subtitle{
+  text-align:center;
+  color:#9ca3af;
+  margin-bottom:40px;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:22px;
+}
+
+.card{
+  background:linear-gradient(180deg,#111827,#0f172a);
+  border:1px solid #243043;
+  border-radius:20px;
+  padding:28px;
+  text-decoration:none;
+  color:#fff;
+  box-shadow:0 20px 40px rgba(0,0,0,.35);
+  transition:.25s;
+  position:relative;
+  overflow:hidden;
+}
+
+.card::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(120deg,transparent,rgba(255,255,255,.08),transparent);
+  transform:translateX(-100%);
+  transition:.4s;
+}
+
+.card:hover{
+  transform:translateY(-6px) scale(1.02);
+  border-color:#7c3aed;
+}
+
+.card:hover::after{
+  transform:translateX(100%);
+}
+
+.card h2{
+  margin:0 0 12px;
+  font-size:26px;
+}
+
+.card p{
+  margin:0;
+  color:#cbd5e1;
+  line-height:1.5;
+}
+
+.tag{
+  margin-top:18px;
+  display:inline-block;
+  font-size:12px;
+  padding:6px 12px;
+  border-radius:999px;
+  background:#1f2937;
+  color:#9ca3af;
+}
+
+footer{
+  text-align:center;
+  margin-top:40px;
+  font-size:13px;
+  color:#6b7280;
+}
+</style>
 </head>
+
 <body>
-  <div class="wrap">
-    <h1>Oyunlar</h1>
-    <p>Bir oyun seç:</p>
+  <div class="container">
+    <h1>🎮 Oyunlar</h1>
+    <div class="subtitle">Bir oyunu seç ve başla</div>
+
     <div class="grid">
-      <a href="./edebiyat/">
-        Edebiyat Oyunu
-        <div class="tag">Klasör: /edebiyat</div>
+      <a class="card" href="./edebiyat/">
+        <h2>📚 Edebiyat</h2>
+        <p>Edebiyat bilgi ve quiz oyunu</p>
+        <div class="tag">Edebiyat</div>
       </a>
-      <a href="./tarih/">
-        Tarih Oyunu
-        <div class="tag">Klasör: /tarih</div>
+
+      <a class="card" href="./tarih/">
+        <h2>🏛️ Tarih</h2>
+        <p>Tarih konuları ve soru oyunları</p>
+        <div class="tag">Tarih</div>
       </a>
-      <a href="./biyoloji/">
-        Biyoloji Oyunu
-        <div class="tag">Klasör: /biyoloji</div>
+
+      <a class="card" href="./biyoloji/">
+        <h2>🧬 Biyoloji</h2>
+        <p>Biyoloji öğrenme ve test oyunu</p>
+        <div class="tag">Biyoloji</div>
       </a>
     </div>
+
+    <footer>
+      © atillaaykac | GitHub Pages
+    </footer>
   </div>
 </body>
 </html>
