@@ -7,34 +7,115 @@
 
 <style>
 *{box-sizing:border-box}
+:root{
+  --line:#243043;
+  --text:#e5e7eb;
+  --muted:#9ca3af;
+}
+
+/* Hareketli arka plan */
+@keyframes bgMove{
+  0%   {background-position: 0% 50%, 100% 50%, 0 0;}
+  50%  {background-position: 100% 50%, 0% 50%, 0 0;}
+  100% {background-position: 0% 50%, 100% 50%, 0 0;}
+}
+
+/* Parlayan “blob”lar */
+@keyframes floatA{
+  0%{transform:translate(-10px,-10px) scale(1)}
+  50%{transform:translate(25px,15px) scale(1.08)}
+  100%{transform:translate(-10px,-10px) scale(1)}
+}
+@keyframes floatB{
+  0%{transform:translate(10px,10px) scale(1)}
+  50%{transform:translate(-20px,18px) scale(1.12)}
+  100%{transform:translate(10px,10px) scale(1)}
+}
+
 body{
   margin:0;
   min-height:100vh;
   font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;
-  background:
-    radial-gradient(1200px 600px at 10% -10%, #7c3aed33, transparent 60%),
-    radial-gradient(1000px 600px at 90% 10%, #22c55e33, transparent 60%),
-    #0b0f18;
-  color:#e5e7eb;
+  color:var(--text);
   display:flex;
   align-items:center;
   justify-content:center;
+
+  background:
+    radial-gradient(900px 520px at 10% 10%, rgba(124,58,237,.36), transparent 62%),
+    radial-gradient(1000px 560px at 90% 18%, rgba(34,197,94,.30), transparent 62%),
+    linear-gradient(180deg,#0b0f18,#020617);
+  background-size: 200% 200%, 200% 200%, 100% 100%;
+  animation:bgMove 18s ease-in-out infinite;
+  overflow-x:hidden;
 }
 
+/* Arka plandaki ekstra efekt katmanı */
+.bgFX{
+  position:fixed;
+  inset:-80px;
+  pointer-events:none;
+  z-index:0;
+}
+
+/* İki tane yumuşak parlayan top */
+.bgFX::before,
+.bgFX::after{
+  content:"";
+  position:absolute;
+  width:520px;
+  height:520px;
+  border-radius:50%;
+  filter: blur(50px);
+  opacity:.55;
+}
+
+.bgFX::before{
+  left:6%;
+  top:18%;
+  background:radial-gradient(circle at 30% 30%, rgba(124,58,237,.90), rgba(124,58,237,0) 65%);
+  animation:floatA 10s ease-in-out infinite;
+}
+
+.bgFX::after{
+  right:6%;
+  bottom:12%;
+  background:radial-gradient(circle at 30% 30%, rgba(34,197,94,.85), rgba(34,197,94,0) 65%);
+  animation:floatB 12s ease-in-out infinite;
+}
+
+/* İnce “noise” dokusu (çok hafif) */
+.noise{
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:0;
+  opacity:.07;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='.9'/%3E%3C/svg%3E");
+}
+
+/* İçerik */
 .container{
-  width:min(1000px,92vw);
+  width:min(1040px,92vw);
+  position:relative;
+  z-index:1;
+}
+
+.header{
+  text-align:center;
+  margin-bottom:34px;
 }
 
 h1{
-  text-align:center;
+  margin:0 0 10px;
   font-size:42px;
-  margin-bottom:10px;
+  letter-spacing:.3px;
 }
 
 .subtitle{
-  text-align:center;
-  color:#9ca3af;
-  margin-bottom:40px;
+  margin:0;
+  color:var(--muted);
+  font-size:15px;
 }
 
 .grid{
@@ -43,95 +124,108 @@ h1{
   gap:22px;
 }
 
+/* Kartlar */
 .card{
-  background:linear-gradient(180deg,#111827,#0f172a);
-  border:1px solid #243043;
-  border-radius:20px;
-  padding:28px;
-  text-decoration:none;
-  color:#fff;
-  box-shadow:0 20px 40px rgba(0,0,0,.35);
-  transition:.25s;
   position:relative;
+  display:block;
+  text-decoration:none;
+  color:var(--text);
+  padding:26px;
+  border-radius:20px;
+  border:1px solid var(--line);
+  background:linear-gradient(180deg, rgba(17,24,39,.92), rgba(15,23,42,.88));
+  box-shadow:0 18px 40px rgba(0,0,0,.38);
   overflow:hidden;
+  transition:transform .22s ease, border-color .22s ease;
 }
 
-.card::after{
+.card::before{
   content:"";
   position:absolute;
-  inset:0;
-  background:linear-gradient(120deg,transparent,rgba(255,255,255,.08),transparent);
-  transform:translateX(-100%);
-  transition:.4s;
+  inset:-2px;
+  background:linear-gradient(120deg, transparent, rgba(255,255,255,.10), transparent);
+  transform:translateX(-110%);
+  transition:transform .45s ease;
 }
 
 .card:hover{
-  transform:translateY(-6px) scale(1.02);
-  border-color:#7c3aed;
+  transform:translateY(-7px) scale(1.02);
+  border-color:rgba(124,58,237,.9);
 }
 
-.card:hover::after{
-  transform:translateX(100%);
+.card:hover::before{
+  transform:translateX(110%);
 }
 
 .card h2{
-  margin:0 0 12px;
+  margin:0 0 10px;
   font-size:26px;
 }
 
 .card p{
   margin:0;
   color:#cbd5e1;
-  line-height:1.5;
+  line-height:1.55;
 }
 
 .tag{
-  margin-top:18px;
   display:inline-block;
+  margin-top:16px;
   font-size:12px;
   padding:6px 12px;
   border-radius:999px;
-  background:#1f2937;
+  background:rgba(31,41,55,.85);
   color:#9ca3af;
+  border:1px solid rgba(36,48,67,.8);
 }
 
+/* Footer */
 footer{
+  margin-top:34px;
   text-align:center;
-  margin-top:40px;
   font-size:13px;
   color:#6b7280;
+}
+
+/* Mobilde biraz küçült */
+@media (max-width:480px){
+  h1{font-size:34px}
+  .card{padding:22px}
 }
 </style>
 </head>
 
 <body>
-  <div class="container">
-    <h1>🎮 Oyunlar</h1>
-    <div class="subtitle">Oyun Seç ve Başla</div>
+  <div class="bgFX"></div>
+  <div class="noise"></div>
 
-    <div class="grid">
+  <main class="container">
+    <div class="header">
+      <h1>🎮 Oyunlar</h1>
+      <p class="subtitle">Bir oyunu seç ve başla</p>
+    </div>
+
+    <section class="grid">
       <a class="card" href="./edebiyat/">
         <h2>📚 Edebiyat</h2>
-        <p>Yazar-Eser | +1000 Soru</p>
-        <div class="tag">Edebiyat</div>
+        <p>Edebiyat bilgi ve quiz oyunu</p>
+        <div class="tag">Klasör: /edebiyat</div>
       </a>
 
       <a class="card" href="./tarih/">
         <h2>🏛️ Tarih</h2>
-        <p>Tarih | +500 Soru ( Şimdilik )</p>
-        <div class="tag">Tarih</div>
+        <p>Tarih konuları ve soru oyunları</p>
+        <div class="tag">Klasör: /tarih</div>
       </a>
 
       <a class="card" href="./biyoloji/">
         <h2>🧬 Biyoloji</h2>
-        <p>Sistemler | +1000 Soru</p>
-        <div class="tag">Biyoloji</div>
+        <p>Biyoloji öğrenme ve test oyunu</p>
+        <div class="tag">Klasör: /biyoloji</div>
       </a>
-    </div>
+    </section>
 
-    <footer>
-      © atillaaykac | Rehberlik
-    </footer>
-  </div>
+    <footer>© atillaaykac | GitHub Pages</footer>
+  </main>
 </body>
 </html>
