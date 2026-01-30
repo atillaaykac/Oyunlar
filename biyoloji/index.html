@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Biyoloji Soru Oyunu</title>
+  <meta name="description" content="Biyoloji soru oyunu" />
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <!-- Background image (you will place biology.png next to these files) -->
+  <div class="bg">
+    <img class="bgImg" src="./biology.png" alt="" />
+    <div class="overlay"></div>
+    <div class="noise"></div>
+  </div>
+
+  <header class="topbar">
+    <div class="brand">
+      <div class="logo" aria-hidden="true">🧬</div>
+      <div class="titles">
+        <div class="h1">Atilla Aykaç</div>
+        <div class="sub">Rehberlik</div>
+      </div>
+    </div>
+    <div class="pill">AYT Biyoloji - Sistemler</div>
+
+    <div class="audioControls" aria-label="Ses kontrolü">
+      <button id="btnMute" class="iconBtn" type="button" aria-label="Sesi aç/kapat" title="Sesi aç/kapat">🔊</button>
+      <label class="volWrap" aria-label="Ses seviyesi">
+        <span class="volLabel">Ses</span>
+        <input id="volSlider" class="volSlider" type="range" min="0" max="1" step="0.01" value="0.4" />
+      </label>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <!-- Ayarlar -->
+    <section class="card">
+      <div class="cardHead">
+        <div>
+          <div class="cardTitle">Başlangıç Ayarları</div>
+          <div class="cardHint">Konu Pakedi Seç + Soru Tipi Seç + Başla!</div>
+        </div>
+        <div class="actions">
+          <button id="btnStart" class="btn primary" type="button" disabled>Başlat</button>
+          <button id="btnReset" class="btn ghost" type="button">Sıfırla</button>
+        </div>
+      </div>
+
+      <div class="grid">
+        <label class="field">
+          <span class="label">Konu Paketi</span>
+          <select id="selPack" class="select select-light">
+            <!-- ui.js dolduracak -->
+          </select>
+        </label>
+
+        <label class="field">
+          <span class="label">Soru Tipi</span>
+          <select id="selType" class="select select-light">
+            <!-- ui.js dolduracak -->
+          </select>
+        </label>
+
+        <div class="field">
+          <span class="label">Soru Sayısı</span>
+          <div id="chipCount" class="chips" role="group" aria-label="Soru sayısı">
+            <!-- ui.js dolduracak -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Oyun -->
+    <section id="game" class="card hidden">
+      <div class="gameTop">
+        <div class="progWrap" aria-label="İlerleme">
+          <div class="progText"><span id="qIndex">0</span> / <span id="qTotal">0</span></div>
+          <div class="progBar"><div id="progFill" class="progFill"></div></div>
+        </div>
+
+        <div class="score">
+          <div class="s">
+            <span class="k">Doğru</span>
+            <span id="sCorrect" class="v">0</span>
+          </div>
+          <div class="s">
+            <span class="k">Yanlış</span>
+            <span id="sWrong" class="v">0</span>
+          </div>
+          <div class="s">
+            <span class="k">Net</span>
+            <span id="sNet" class="v">0</span>
+          </div>
+          <div class="s">
+            <span class="k">%</span>
+            <span id="sPct" class="v">0</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="qCard">
+        <div class="tags">
+          <span id="qTypeTag" class="tag type">—</span>
+          <span id="qTag" class="tag topic">—</span>
+        </div>
+
+        <div id="imgWrap" class="imgWrap hidden">
+          <img id="qImg" class="qImg" alt="Soru görseli" />
+        </div>
+
+        <div id="qText" class="qText">—</div>
+
+        <div id="choices" class="choices" aria-label="Cevap seçenekleri">
+          <!-- app.js dolduracak -->
+        </div>
+
+        <div id="feedback" class="feedback" role="status" aria-live="polite"></div>
+
+        <div class="qActions">
+          <button id="btnWrong" class="btn ghost" type="button">Yanlışlarım</button>
+          <div class="spacer"></div>
+          <button id="btnNext" class="btn primary" type="button" disabled>Sonraki</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Yanlışlar Modal -->
+  <div id="modal" class="modal hidden" role="dialog" aria-modal="true" aria-label="Yanlışlarım">
+    <div class="modalCard">
+      <div class="modalHead">
+        <div class="modalTitle">Yanlışlarım</div>
+        <button id="btnCloseModal" class="iconBtn" type="button" aria-label="Kapat">✕</button>
+      </div>
+      <div id="wrongList" class="modalBody"></div>
+    </div>
+  </div>
+
+  <!-- Sonuç Modal -->
+  <div id="resultModal" class="modal hidden" role="dialog" aria-modal="true" aria-label="Sonuç">
+    <div class="modalCard">
+      <div class="modalHead">
+        <div class="modalTitle">Sonuç</div>
+        <button id="btnCloseResult" class="iconBtn" type="button" aria-label="Kapat">✕</button>
+      </div>
+      <div id="resultBody" class="modalBody"></div>
+      <div class="modalFoot">
+        <button id="btnPlayAgain" class="btn primary" type="button">Tekrar Oyna</button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="foot">
+    <span>Atilla Aykaç</span>
+    <span class="dot">•</span>
+    <span class="muted">Rehberlik</span>
+  </footer>
+
+  <!-- Sıra önemli -->
+  <script src="./app.js"></script>
+  <script src="./ui.js"></script>
+
+  <!-- Background music (place stay.mp3 next to these files) -->
+  <audio id="bgm" src="./stay.mp3" loop preload="auto"></audio>
+
+  <script src="./audio.js"></script>
+
+</body>
+</html>

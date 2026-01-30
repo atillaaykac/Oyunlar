@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>AYT Edebiyat Oyunu</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="wrap">
+    <header class="top">
+      <h1>AYT Edebiyat</h1>
+      <p class="sub">Yazar–Eser Alıştırması / Atilla Aykaç - Rehberlik </p>
+    </header>
+
+    <!-- ANA MENÜ -->
+    <section id="screen-home" class="card">
+      <div class="grid">
+        <div class="box">
+          <h2>Ayarlar</h2>
+
+          <label class="row">
+            <span>Kategori</span>
+            <select id="category">
+              <option value="halk">Halk Edebiyatı</option>
+              <option value="divan">Divan Edebiyatı</option>
+              <option value="tanzimat">Tanzimat Edebiyatı</option>
+              <option value="servetifun">Servet-i Fünun Edebiyatı</option>
+              <option value="fecriat">Fecr-i Ati Edebiyatı</option>
+              <option value="milli">Milli Edebiyat</option>
+              <option value="cumhuriyet">Cumhuriyet Edebiyatı</option>
+              <option value="karisik" selected>Genel Karışık</option>
+            </select>
+          </label>
+
+          <label id="genreRow" class="row hidden">
+            <span>Tür</span>
+            <select id="genre"></select>
+          </label>
+
+          <label class="row">
+            <span>Soru Sayısı</span>
+            <select id="questionCount">
+              <option value="10">10</option>
+              <option value="20" selected>20</option>
+              <option value="30">30</option>
+              <option value="50">50</option>
+              <option value="75">75</option>
+              <option value="100">100</option>
+            </select>
+          </label>
+
+          <label class="row">
+            <span>Süre (dk)</span>
+            <select id="minutes">
+              <option value="5">5</option>
+              <option value="8" selected>8</option>
+              <option value="10">10</option>
+              <option value="15">15</option>
+              <option value="20">20</option>
+            </select>
+          </label>
+
+          <label class="row">
+            <span>Nick Name</span>
+            <input id="nickname" class="inp" type="text" placeholder="ör: atilla" maxlength="15" />
+          </label>
+          <div id="nickHelp" class="smallHint">Nick Name 3–15 karakter olmalı.</div>
+
+          <button id="btnStart" class="btn primary" disabled>Oyuna Başla</button>
+          <button id="btnHow" class="btn">Nasıl Oynanır?</button>
+        </div>
+
+        <div class="box">
+          <h2>İstatistik</h2>
+
+          <div class="stats statsSmall">
+            <div class="stat">
+              <div class="k smallK">En İyi Başarı</div>
+              <div id="bestSuccess" class="v smallV">0%</div>
+            </div>
+            <div class="stat">
+              <div class="k smallK">Toplam Oyun</div>
+              <div id="totalGames" class="v smallV">0</div>
+            </div>
+          </div>
+
+          <div class="lbHead">
+            <div class="lbTitle">Sıralama</div>
+            <button id="btnClearLb" class="btn tiny danger" title="Bu cihazdaki sıralamayı sıfırlar">Sıfırla</button>
+          </div>
+
+          <div id="leaderboard" class="leaderboard"></div>
+          <p class="hint">Not: Sıralama bu cihazda (localStorage) tutulur.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- NASIL OYNANIR -->
+    <section id="screen-how" class="card hidden">
+      <h2>Nasıl Oynanır?</h2>
+      <ul class="list">
+        <li>Soru tipleri: (1) Eser → Yazar, (2) Yazar → “hangisini yazmıştır?”</li>
+        <li>Başarı yüzdesi sadece <b>ilk kontrol</b>e göre hesaplanır.</li>
+        <li>Yanlışta seçtiğin şık kırmızı, doğru şık yeşil yanar.</li>
+        <li>Son 10 soruda sorulan/doğru olan eser tekrar “doğru” olarak gelmez.</li>
+        <li>Aynı isimli eser (Divan vb.) birden fazla yazarda varsa, o yazarlardan herhangi birini seçmek doğru kabul edilir.</li>
+      </ul>
+      <button id="btnBackHome1" class="btn">Geri</button>
+    </section>
+
+    <!-- OYUN -->
+    <section id="screen-game" class="card hidden">
+      <div class="bar">
+        <div class="pill">Soru: <b id="qIndex">1</b>/<span id="qTotal">20</span></div>
+        <div class="pill">Başarı: <b id="success">0</b>%</div>
+        <div class="pill">Süre: <b id="time">08:00</b></div>
+        <button id="btnSound" class="btn small">Ses: Açık</button>
+        <button id="btnQuit" class="btn small">Çık</button>
+      </div>
+
+      <div class="gameLayout">
+        <div class="qbox">
+          <div id="qTag" class="tag">Kategori • Tür</div>
+          <h2 id="question" class="question">Soru metni</h2>
+
+          <div id="choices" class="choices"></div>
+          <div id="feedback" class="feedback"></div>
+
+          <div class="actions">
+            <button id="btnNext" class="btn primary" disabled>Sonraki</button>
+          </div>
+        </div>
+
+        <aside id="authorPanel" class="authorCard hidden">
+          <div class="authorPhotoWrap">
+            <img id="authorImg" class="authorImg" alt="Yazar fotoğrafı" />
+          </div>
+          <div class="authorMeta">
+            <div class="authorLabel">Yazar</div>
+            <div id="authorName" class="authorName">-</div>
+            <div id="authorHint" class="authorHint">Fotoğraf Wikipedia/Wikimedia üzerinden yüklenir.</div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- SONUÇ -->
+    <section id="screen-result" class="card hidden">
+      <h2>Sonuç</h2>
+
+      <div class="resultGrid">
+        <div class="res">
+          <div class="k">Başarı</div>
+          <div id="resScore" class="v">0%</div>
+        </div>
+        <div class="res">
+          <div class="k">İlk Kontrol Doğru</div>
+          <div id="resCorrect" class="v">0</div>
+        </div>
+        <div class="res">
+          <div class="k">İlk Kontrol Yanlış</div>
+          <div id="resWrong" class="v">0</div>
+        </div>
+        <div class="res">
+          <div class="k">Boş</div>
+          <div id="resEmpty" class="v">0</div>
+        </div>
+        <div id="mistakeAnalysis" class="analysisBox"></div>
+      </div>
+
+      <div class="rowBtns">
+        <button id="btnPlayAgain" class="btn primary">Tekrar Oyna</button>
+        <button id="btnBackHome2" class="btn">Ana Menü</button>
+      </div>
+    </section>
+
+    <footer class="foot">© Atilla Aykaç</footer>
+  </div>
+
+  <div class="creatorBar">Atilla Aykaç - Özde Eğitim Rehberlik</div>
+
+  <script src="app.js"></script>
+</body>
+</html>

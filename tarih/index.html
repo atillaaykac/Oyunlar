@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AYT Tarih</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Audio -->
+  <audio id="bgMusic" src="plevne.mp3" loop></audio>
+  <audio id="correctSound" src="dogru.mp3"></audio>
+  <audio id="wrongSound" src="yanlis.mp3"></audio>
+
+  <!-- ÜST BAR -->
+  <header class="top-bar">
+    <div class="logo">Atilla Aykaç ● Özde Eğitim Rehberlik</div>
+
+    <div class="audio-controls" aria-label="Ses kontrolleri">
+      <button id="muteBtn" class="icon-btn" type="button" aria-label="Sesi aç/kapat" title="Sesi aç/kapat">🔊</button>
+
+      <label class="vol-wrap" aria-label="Ses seviyesi">
+        <span class="vol-label">Ses</span>
+        <input id="volumeSlider" type="range" min="0" max="100" value="25" />
+      </label>
+    </div>
+  </header>
+
+  <!-- ANA KART -->
+  <main class="container">
+
+    <!-- ANA MENÜ -->
+    <section id="menuScreen" class="card active">
+      <h1>Tarih</h1>
+      <p class="sub">Atilla Aykaç - Rehberlik</p>
+
+      <div class="form-group">
+        <label>Kategori</label>
+        <select id="categorySelect">
+          <option value="mm" selected>Milli Mücadele</option>
+          <option value="ww2">2.Dünya Savaşı</option>
+          <option value="osmanli">Beylikten Devlete Osmanlı</option>
+          <option value="inkilap">Atatürkçülük ve Türk İnkılabı</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Alt Kategori</label>
+        <select id="subCategorySelect">
+          <option value="">Lütfen Alt Kategori Seçiniz</option>
+          <option value="cemiyetler">Cemiyetler</option>
+          <option value="genelgeler">Genelgeler ve Kongreler</option>
+          <option value="son">Milli Mücadele Sonu</option>
+          <option value="dogu">Cepheler-Doğu</option>
+          <option value="guney">Cepheler-Güney</option>
+          <option value="bati">Cepheler-Batı</option>
+        </select>
+      </div>
+
+      <div class="question-count">
+        <button data-count="5" type="button">5</button>
+        <button data-count="10" type="button">10</button>
+        <button data-count="25" type="button">25</button>
+        <button data-count="50" class="active" type="button">50</button>
+        <button data-count="100" type="button">100</button>
+      </div>
+
+      <div class="menu-buttons">
+        <button id="howToBtn" type="button">Nasıl oynanır?</button>
+        <button id="startBtn" class="primary" type="button">Başla</button>
+      </div>
+    </section>
+
+    <!-- SORU EKRANI -->
+    <section id="quizScreen" class="card">
+      <div class="quiz-header">
+        <span id="questionIndex">1 / 10</span>
+
+        <div class="quiz-meta">
+          <span class="pill" id="timer">00:00</span>
+          <span class="pill" id="liveRate">%0</span>
+          <span class="pill" id="score">0</span>
+        </div>
+      </div>
+
+      <h2 id="questionText">Soru buraya gelecek</h2>
+
+      <div id="options" class="options"></div>
+
+      <div class="quiz-actions">
+        <button id="menuBtn" type="button">Ana Menü</button>
+        <button id="nextBtn" class="primary" type="button" disabled>Sonraki</button>
+      </div>
+    </section>
+
+    <!-- SONUÇ EKRANI -->
+    <section id="resultScreen" class="card">
+      <h2>Test Sonucu</h2>
+
+      <div class="result-box">
+        <p>Doğru: <span id="correctCount">0</span></p>
+        <p>Yanlış: <span id="wrongCount">0</span></p>
+        <p>Başarı: <span id="successRate">%0</span></p>
+        <p>Süre: <span id="finalTime">00:00</span></p>
+      </div>
+
+      <h3>Yanlış Analizi</h3>
+      <ul id="wrongList"></ul>
+
+      <button onclick="location.reload()" class="primary" type="button">Ana Menüye Dön</button>
+    </section>
+
+  </main>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

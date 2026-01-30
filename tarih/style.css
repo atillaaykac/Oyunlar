@@ -1,0 +1,496 @@
+/* AYT Tarih - style.css */
+
+:root{
+  --bg-overlay: rgba(0,0,0,.55);
+  --card-bg: rgba(35, 24, 12, .72);
+  --card-border: rgba(255, 210, 120, .22);
+  --text: rgba(255,255,255,.92);
+  --muted: rgba(255,255,255,.70);
+  --gold: rgba(255, 200, 90, .95);
+  --gold-soft: rgba(255, 200, 90, .25);
+  --shadow: 0 18px 60px rgba(0,0,0,.45);
+  --radius: 18px;
+  --radius-sm: 12px;
+  --focus: 0 0 0 3px rgba(255,200,90,.18);
+}
+
+*{ box-sizing: border-box; }
+
+html, body{
+  height: 100%;
+  margin: 0;
+  font-family: ui-serif, Georgia, "Times New Roman", Times, serif;
+  color: var(--text);
+}
+
+body{
+  background:
+    linear-gradient(180deg, rgba(0,0,0,.35), rgba(0,0,0,.65)),
+    url("tarih.jpg") center/cover no-repeat fixed;
+}
+
+/* Top bar */
+.top-bar{
+  height: 54px;
+  display: flex;
+  align-items: center;
+  padding: 0 22px;
+  background: linear-gradient(180deg, rgba(0,0,0,.65), rgba(0,0,0,.15));
+  border-bottom: 1px solid rgba(255,255,255,.06);
+  backdrop-filter: blur(6px);
+}
+
+.logo{
+  font-weight: 700;
+  letter-spacing: .3px;
+  opacity: .95;
+}
+
+/* Center container */
+.container{
+  min-height: calc(100vh - 54px);
+  display: grid;
+  place-items: center;
+  padding: 24px 16px 40px;
+}
+
+/* Card */
+.card{
+  width: min(920px, 96vw);
+  background: radial-gradient(1200px 600px at 50% 10%, rgba(255, 200, 90, .08), transparent 55%),
+              linear-gradient(180deg, rgba(0,0,0,.18), rgba(0,0,0,.32)),
+              var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 34px 34px 28px;
+  display: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.card::before{
+  content:"";
+  position:absolute;
+  inset:-60px;
+  background:
+    radial-gradient(380px 220px at 18% 18%, rgba(255, 200, 90, .11), transparent 60%),
+    radial-gradient(420px 260px at 85% 25%, rgba(255, 200, 90, .08), transparent 62%),
+    radial-gradient(520px 320px at 55% 105%, rgba(0,0,0,.25), transparent 55%);
+  pointer-events:none;
+  filter: blur(.2px);
+}
+
+.card > *{ position: relative; z-index: 1; }
+
+.card.active{ display: block; }
+
+/* Titles */
+h1{
+  margin: 0;
+  font-size: clamp(34px, 4vw, 46px);
+  text-align: center;
+  letter-spacing: .4px;
+  text-shadow: 0 2px 18px rgba(0,0,0,.55);
+}
+
+.sub{
+  margin: 10px 0 26px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+/* Form */
+.form-group{
+  display: grid;
+  gap: 10px;
+  margin: 14px 0;
+}
+
+label{
+  font-size: 14px;
+  color: rgba(255,255,255,.78);
+}
+
+select{
+  width: 100%;
+  height: 46px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 210, 120, .22);
+  background: rgba(0,0,0,.25);
+  color: var(--text);
+  padding: 0 14px;
+  outline: none;
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,.20);
+}
+
+select:focus{
+  box-shadow: var(--focus);
+  border-color: rgba(255, 200, 90, .45);
+}
+
+select:disabled{
+  opacity: .9;
+  cursor: not-allowed;
+}
+
+/* Question count buttons */
+.question-count{
+  display: flex;
+  gap: 10px;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  margin: 18px 0 8px;
+}
+
+.question-count button{
+  min-width: 66px;
+  height: 44px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,.10);
+  background: rgba(0,0,0,.22);
+  color: var(--text);
+  cursor: pointer;
+  font-weight: 700;
+  letter-spacing: .2px;
+  transition: transform .08s ease, background .15s ease, border-color .15s ease;
+}
+
+.question-count button:hover{
+  transform: translateY(-1px);
+  border-color: rgba(255, 200, 90, .22);
+}
+
+.question-count button.active{
+  background: rgba(255, 200, 90, .22);
+  border-color: rgba(255, 200, 90, .55);
+  color: rgba(255,255,255,.96);
+}
+
+/* Menu buttons */
+.menu-buttons{
+  margin-top: 22px;
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+button{
+  font-family: inherit;
+}
+
+.menu-buttons button,
+.primary{
+  height: 44px;
+  padding: 0 18px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,.10);
+  background: rgba(0,0,0,.22);
+  color: var(--text);
+  cursor: pointer;
+  font-weight: 700;
+  letter-spacing: .2px;
+  transition: transform .08s ease, background .15s ease, border-color .15s ease;
+}
+
+.menu-buttons button:hover,
+.primary:hover{
+  transform: translateY(-1px);
+  border-color: rgba(255, 200, 90, .25);
+}
+
+.primary{
+  background: rgba(255, 200, 90, .18);
+  border-color: rgba(255, 200, 90, .55);
+}
+
+.primary:active,
+.menu-buttons button:active{
+  transform: translateY(0px);
+}
+
+/* Quiz screen */
+.quiz-header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+  color: rgba(255,255,255,.80);
+  font-size: 14px;
+}
+
+#score{
+  font-weight: 800;
+  color: rgba(255,255,255,.92);
+  padding: 6px 10px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,.10);
+  background: rgba(0,0,0,.22);
+}
+
+#questionText{
+  margin: 0 0 18px;
+  font-size: clamp(20px, 2.2vw, 26px);
+  line-height: 1.35;
+  text-shadow: 0 2px 12px rgba(0,0,0,.40);
+}
+
+.options{
+  display: grid;
+  gap: 12px;
+}
+
+.options button{
+  width: 100%;
+  text-align: left;
+  padding: 14px 14px;
+  min-height: 48px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,.10);
+  background: rgba(0,0,0,.22);
+  color: rgba(255,255,255,.92);
+  cursor: pointer;
+  font-weight: 650;
+  transition: transform .08s ease, background .15s ease, border-color .15s ease, opacity .15s ease;
+}
+
+.options button:hover{
+  transform: translateY(-1px);
+  border-color: rgba(255, 200, 90, .22);
+}
+
+.options button.correct{
+  background: rgba(90, 220, 140, .18);
+  border-color: rgba(90, 220, 140, .55);
+}
+
+.options button.wrong{
+  background: rgba(255, 110, 110, .16);
+  border-color: rgba(255, 110, 110, .55);
+}
+
+.options button.disabled{
+  cursor: not-allowed;
+  opacity: .70;
+}
+
+/* Result screen */
+.result-box{
+  margin: 14px 0 18px;
+  display: grid;
+  gap: 6px;
+  padding: 14px 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,.10);
+  background: rgba(0,0,0,.22);
+}
+
+.result-box p{
+  margin: 0;
+  color: rgba(255,255,255,.86);
+}
+
+#successRate{
+  color: var(--gold);
+  font-weight: 900;
+}
+
+h3{
+  margin: 22px 0 10px;
+  font-size: 18px;
+  color: rgba(255,255,255,.90);
+}
+
+#wrongList{
+  list-style: none;
+  padding: 0;
+  margin: 0 0 18px;
+  display: grid;
+  gap: 10px;
+}
+
+#wrongList li{
+  padding: 12px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,.10);
+  background: rgba(0,0,0,.22);
+  color: rgba(255,255,255,.86);
+  line-height: 1.35;
+}
+
+#wrongList li b{
+  color: rgba(255,255,255,.95);
+}
+
+/* Responsive */
+@media (max-width: 540px){
+  .card{ padding: 26px 18px 22px; }
+  .question-count button{ min-width: 62px; }
+}
+
+
+/* Quiz action buttons: Ana Menü = Sonraki ile aynı stil */
+.quiz-actions #menuBtn{
+  background: linear-gradient(180deg,#b88a44,#8c5a1e);
+  color: #fff;
+  border: 1px solid #6f4717;
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.quiz-actions #menuBtn:hover{
+  filter: brightness(1.05);
+}
+.quiz-actions #menuBtn:active{
+  transform: translateY(1px);
+}
+
+
+
+/* =========================
+   FIX PACK (Audio right + Sword volume + Select readable)
+   ========================= */
+
+/* Top bar: logo left, audio controls right */
+.top-bar{
+  justify-content: space-between;
+  gap: 14px;
+}
+
+/* Audio controls layout (right side) */
+.audio-controls{
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.icon-btn{
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: inline-grid;
+  place-items: center;
+  background: rgba(0,0,0,.22);
+  border: 1px solid rgba(255, 210, 120, .18);
+  color: rgba(255,255,255,.92);
+  cursor: pointer;
+}
+.icon-btn:hover{ filter: brightness(1.06); }
+.icon-btn:active{ transform: translateY(1px); }
+
+.vol-wrap{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 10px;
+  border-radius: 12px;
+  background: rgba(0,0,0,.18);
+  border: 1px solid rgba(255, 210, 120, .14);
+}
+.vol-label{
+  font-size: 13px;
+  opacity: .9;
+  user-select: none;
+}
+
+/* -------- Sword-style volume slider -------- */
+#volumeSlider{
+  width: 150px;
+  height: 18px;
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+/* Track (blade) */
+#volumeSlider::-webkit-slider-runnable-track{
+  height: 10px;
+  border-radius: 999px;
+  background: linear-gradient(90deg,
+    rgba(255,255,255,.18) 0%,
+    rgba(255,255,255,.30) 35%,
+    rgba(255,255,255,.18) 70%,
+    rgba(255,255,255,.08) 100%);
+  border: 1px solid rgba(255, 210, 120, .18);
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,.12);
+}
+
+/* Thumb (hilt/handle) */
+#volumeSlider::-webkit-slider-thumb{
+  -webkit-appearance: none;
+  appearance: none;
+  width: 22px;
+  height: 22px;
+  margin-top: -7px;
+  border-radius: 10px;
+  background: linear-gradient(180deg,#b88a44,#8c5a1e);
+  border: 1px solid rgba(0,0,0,.35);
+  box-shadow: 0 6px 16px rgba(0,0,0,.35);
+  position: relative;
+}
+
+/* Add a tiny cross-guard using box-shadow illusion */
+#volumeSlider::-webkit-slider-thumb{
+  box-shadow:
+    0 6px 16px rgba(0,0,0,.35),
+    -10px 0 0 -6px rgba(255, 210, 120, .55),
+     10px 0 0 -6px rgba(255, 210, 120, .55);
+}
+
+/* Firefox */
+#volumeSlider::-moz-range-track{
+  height: 10px;
+  border-radius: 999px;
+  background: linear-gradient(90deg,
+    rgba(255,255,255,.18) 0%,
+    rgba(255,255,255,.30) 35%,
+    rgba(255,255,255,.18) 70%,
+    rgba(255,255,255,.08) 100%);
+  border: 1px solid rgba(255, 210, 120, .18);
+}
+#volumeSlider::-moz-range-thumb{
+  width: 22px;
+  height: 22px;
+  border-radius: 10px;
+  background: linear-gradient(180deg,#b88a44,#8c5a1e);
+  border: 1px solid rgba(0,0,0,.35);
+  box-shadow:
+    0 6px 16px rgba(0,0,0,.35),
+    -10px 0 0 -6px rgba(255, 210, 120, .55),
+     10px 0 0 -6px rgba(255, 210, 120, .55);
+}
+
+/* -------- Select readability (black text on gray) -------- */
+#subCategorySelect,
+select{
+  color: #111 !important;
+  background: rgba(255,255,255,.85) !important;
+}
+select:focus{ outline: none; box-shadow: var(--focus); }
+
+option{
+  color: #111 !important;
+  background: #e8e8e8 !important;
+}
+
+
+/* ===== Persistent center brand text ===== */
+.top-bar{
+  position: sticky;
+  top: 0;
+}
+
+.top-bar .center-brand{
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-weight: 600;
+  letter-spacing: .3px;
+  opacity: .9;
+  pointer-events: none;
+}
