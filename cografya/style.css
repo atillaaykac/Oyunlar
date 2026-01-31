@@ -1,0 +1,447 @@
+:root{
+  --bg:#0b0f14;
+  --card: rgba(245,248,252,.10);
+  --line: rgba(255,255,255,.14);
+  --text:#eef2f7;
+  --muted:#b9c2cf;
+  --good:#22c55e;
+  --bad:#ef4444;
+  --accent:#d1d5db; /* silver */
+  --accent2:#f3f4f6; /* bright silver */
+  --r:18px;
+  --shadow: 0 20px 60px rgba(0,0,0,.45);
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;color:var(--text);background:var(--bg)}
+.bg{position:fixed;inset:0;z-index:-2;background:url("cografya.png") center/cover no-repeat}
+.shade{position:fixed;inset:0;z-index:-1;background:
+  radial-gradient(900px 600px at 20% 10%, rgba(243,244,246,.14), transparent 60%),
+  radial-gradient(900px 600px at 90% 0%, rgba(209,213,219,.10), transparent 60%),
+  linear-gradient(180deg, rgba(11,15,20,.72), rgba(11,15,20,.92));
+}
+.wrap{max-width:980px;margin:0 auto;padding:18px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:18px;margin-top:18px;box-shadow:var(--shadow);backdrop-filter: blur(8px)}
+.hidden{display:none}
+.brand{font-weight:900;letter-spacing:.2px;opacity:.95}
+h1{margin:10px 0 10px;font-size:26px}
+.muted{color:var(--muted);line-height:1.55}
+.btn{margin-top:12px;padding:12px 16px;border-radius:14px;border:1px solid rgba(255,255,255,.16);
+  background:rgba(243,244,246,.14);color:var(--text);font-weight:900;cursor:pointer}
+.btn:hover{filter:brightness(1.08)}
+.btn:disabled{opacity:.55;cursor:not-allowed}
+.btn.ghost{background:rgba(255,255,255,.06)}
+.foot{margin-top:12px;font-size:12px;color:var(--muted)}
+.foot code{background:rgba(255,255,255,.10);padding:2px 6px;border-radius:10px;border:1px solid var(--line);color:var(--text)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:10px}
+@media (max-width:700px){.grid2{grid-template-columns:1fr}}
+
+.toprow{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.pill{font-size:12px;padding:8px 10px;border-radius:999px;border:1px solid var(--line);
+  background:rgba(255,255,255,.08);color:var(--muted);font-weight:900}
+.pill.ok{color:rgba(234,240,255,.95);border-color:rgba(34,197,94,.35);background:rgba(34,197,94,.10)}
+.pill.bad{color:rgba(234,240,255,.95);border-color:rgba(239,68,68,.35);background:rgba(239,68,68,.10)}
+.qtext{margin:14px 0 12px;font-size:18px;line-height:1.35
+  white-space: pre-line;
+}
+.choices{display:grid;gap:10px;margin-top:10px}
+.choice{
+  position:relative;
+  overflow:hidden;
+  text-align:left;
+  padding:14px 14px;
+  border-radius:14px;
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.08);
+  color:var(--text);
+  cursor:pointer;
+  font-weight:900;
+}
+/* big translucent flag "watermark" */
+.choice:hover{filter:brightness(1.06)}
+.choice:disabled{cursor:not-allowed;opacity:.78}
+.choice.wrong{border-color:rgba(239,68,68,.55);background:rgba(239,68,68,.14);opacity:.55}
+.choice.correct{border-color:rgba(34,197,94,.85);background:rgba(34,197,94,.16)}
+.bottomrow{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:14px}
+
+.choice{position:relative}
+.choice > *{position:relative}
+
+/* Flag background using real SVG files */
+/* readability overlay */
+.choice{
+  position:relative;
+}
+
+
+
+/* center text, readable */
+.choiceText{
+  position:relative;
+  z-index:2;
+  padding:8px 14px;
+  border-radius:12px;
+  background: rgba(10,14,20,.62);
+  border: 1px solid rgba(255,255,255,.18);
+  box-shadow: 0 10px 24px rgba(0,0,0,.22);
+}
+
+
+/* --- V11: GUARANTEED right-side flag (no pseudo-elements) --- */
+.choice{
+  position:relative;
+  overflow:hidden;
+
+  /* base surface */
+  background-color: rgba(255,255,255,.08);
+
+  /* 1) readability gradient overlay  2) flag image on the RIGHT */
+  background-image:
+    linear-gradient(90deg, rgba(0,0,0,.18) 0%, rgba(0,0,0,.10) 68%, rgba(0,0,0,.02) 100%),
+    var(--flag-url);
+  background-repeat: no-repeat, no-repeat;
+  background-position: center, right center;
+  background-size: cover, 32% 100%;
+}
+
+/* keep text readable and centered */
+.choice{
+  min-height:72px;
+  padding:14px 14px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  font-size:16px;
+}
+
+.choiceText{
+  position:relative;
+  z-index:1;
+  padding:8px 14px;
+  border-radius:12px;
+  background: rgba(10,14,20,.62);
+  border: 1px solid rgba(255,255,255,.18);
+  box-shadow: 0 10px 24px rgba(0,0,0,.22);
+}
+
+/* --- V12: FX + keep flag visible --- */
+
+/* don't fade out the whole button when disabled (keeps flag visible) */
+.choice:disabled{
+  opacity: 1 !important;
+  filter: none !important;
+}
+
+/* Wrong: red flash + shake */
+@keyframes shakeX{
+  0%{transform:translateX(0)}
+  20%{transform:translateX(-6px)}
+  40%{transform:translateX(6px)}
+  60%{transform:translateX(-4px)}
+  80%{transform:translateX(4px)}
+  100%{transform:translateX(0)}
+}
+.choice.wrongfx{
+  animation: shakeX .28s ease-in-out 0s 1;
+  box-shadow: 0 0 0 2px rgba(239,68,68,.35), 0 18px 40px rgba(239,68,68,.18);
+}
+.choice.wrongfx::selection{background:none}
+/* red "burn" on the flag area (right side) */
+.choice.wrongfx{
+  background-image:
+    linear-gradient(90deg, rgba(239,68,68,.22) 0%, rgba(239,68,68,.12) 68%, rgba(239,68,68,.02) 100%),
+    var(--flag-url);
+}
+
+/* Correct: green highlight + bounce */
+@keyframes bounceUp{
+  0%{transform:translateY(0)}
+  30%{transform:translateY(-8px)}
+  55%{transform:translateY(0)}
+  75%{transform:translateY(-4px)}
+  100%{transform:translateY(0)}
+}
+.choice.correctfx{
+  animation: bounceUp .35s ease-out 0s 1;
+  box-shadow: 0 0 0 2px rgba(34,197,94,.35), 0 18px 40px rgba(34,197,94,.16);
+}
+.choice.correctfx{
+  background-image:
+    linear-gradient(90deg, rgba(34,197,94,.20) 0%, rgba(34,197,94,.10) 68%, rgba(34,197,94,.02) 100%),
+    var(--flag-url);
+}
+
+/* Ensure base wrong/correct borders don't kill background */
+.choice.wrong{opacity:1}
+.choice.correct{opacity:1}
+
+/* --- V13: restore question panel background --- */
+.qtext{
+  margin:14px 0 10px !important;
+  padding:14px 16px !important;
+  border-radius:16px !important;
+  border:1px solid rgba(255,255,255,.14) !important;
+  background: rgba(255,255,255,.10) !important;
+  box-shadow: 0 14px 40px rgba(0,0,0,.25) !important;
+  font-size:18px !important;
+  line-height:1.35 !important;
+}
+
+
+/* --- V14: Category/Subcategory menu UI --- */
+.menuGrid{
+  display:grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap:14px;
+  margin-top:12px;
+}
+@media (max-width: 900px){
+  .menuGrid{grid-template-columns:1fr}
+}
+.panel{
+  border:1px solid rgba(255,255,255,.14);
+  background: rgba(255,255,255,.06);
+  border-radius:16px;
+  padding:14px;
+  box-shadow: 0 14px 40px rgba(0,0,0,.18);
+}
+.panelTitle{
+  font-weight:900;
+  margin-bottom:10px;
+  color: rgba(238,242,247,.95);
+}
+.select{
+  width:100%;
+  padding:12px 12px;
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,.14);
+  background: rgba(10,14,20,.45);
+  color: var(--text);
+  font-weight:900;
+  outline:none;
+}
+.select:focus{box-shadow: 0 0 0 3px rgba(243,244,246,.14)}
+.panelHint{margin-top:10px; font-size:13px}
+
+.subGrid{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap:12px;
+}
+@media (max-width:700px){
+  .subGrid{grid-template-columns:1fr}
+}
+.subCard{
+  text-align:left;
+  border-radius:16px;
+  border:1px solid rgba(255,255,255,.14);
+  background: rgba(255,255,255,.08);
+  padding:14px;
+  cursor:pointer;
+  transition: transform .12s ease, filter .12s ease;
+  color: var(--text);
+}
+.subCard:hover{transform: translateY(-2px); filter: brightness(1.05)}
+.subCard.disabled, .subCard:disabled{
+  opacity:.55;
+  cursor:not-allowed;
+  transform:none;
+  filter:none;
+}
+.subName{font-weight:1000; font-size:18px; letter-spacing:.2px}
+.subDesc{color: var(--muted); margin-top:6px; font-weight:800; font-size:13px; line-height:1.35}
+
+/* --- V16: choices readable (light label + dark text) --- */
+.choiceText{
+  background: rgba(245,248,252,.88) !important;  /* light */
+  color: #0b0f14 !important;                     /* dark text */
+  border: 1px solid rgba(0,0,0,.10) !important;
+  box-shadow: 0 10px 24px rgba(0,0,0,.18) !important;
+}
+
+/* --- V18: Leaderboard --- */
+.lbHead, .lbRow{
+  display:grid;
+  grid-template-columns: 48px 1.4fr 1fr 1fr 70px 90px;
+  gap:10px;
+  align-items:center;
+}
+.lbHead{
+  padding:10px 8px;
+  border-radius:12px;
+  border:1px solid rgba(255,255,255,.14);
+  background: rgba(255,255,255,.06);
+  color: var(--muted);
+  font-weight:900;
+  font-size:12px;
+}
+.lbRow{
+  padding:10px 8px;
+  border-radius:12px;
+  border:1px solid rgba(255,255,255,.10);
+  background: rgba(0,0,0,.18);
+  margin-top:8px;
+}
+.lbRank{font-weight:1000;color:rgba(238,242,247,.92)}
+.lbName{font-weight:1000}
+.lbMode{color:var(--muted);font-weight:900}
+.lbBadge{font-weight:1000}
+.lbPct{font-weight:1100}
+.lbTime{color:var(--muted);font-weight:900}
+.lbMini{
+  margin-top:12px;
+  border-radius:16px;
+  border:1px solid rgba(255,255,255,.14);
+  background: rgba(255,255,255,.06);
+  padding:12px;
+}
+.lbTitle{font-weight:1000;margin-bottom:10px}
+@media (max-width: 760px){
+  .lbHead, .lbRow{grid-template-columns: 44px 1.4fr 1fr 1fr 64px 80px}
+}
+
+/* --- V19: menu readability + leaderboard spacing --- */
+.leaderboardPanel{margin-top:18px}
+
+/* make selects readable (light background, dark text) */
+.select{
+  background: rgba(245,248,252,.92) !important;
+  color: #0b0f14 !important;
+  border: 1px solid rgba(0,0,0,.12) !important;
+}
+.select option{color:#0b0f14}
+.lbl{
+  display:block;
+  margin:8px 0 6px;
+  font-weight:1000;
+  color: rgba(238,242,247,.92);
+}
+.field{margin-bottom:10px}
+
+/* ===== V23 Silver Pro Skin (safe) ===== */
+.card{ position:relative; overflow:hidden; border-radius:26px; border:1px solid rgba(255,255,255,.18);
+  background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(0,0,0,.22));
+  box-shadow: 0 18px 55px rgba(0,0,0,.45);
+}
+.card::before{ content:""; position:absolute; inset:0; padding:1px; border-radius:26px;
+  background: linear-gradient(120deg, rgba(255,255,255,.70), rgba(210,218,230,.20), rgba(255,255,255,.55), rgba(160,170,190,.25), rgba(255,255,255,.70));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor; mask-composite: exclude; pointer-events:none;
+}
+.panel{ border-radius:20px; border:1px solid rgba(255,255,255,.16);
+  background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(0,0,0,.20));
+  box-shadow: 0 14px 34px rgba(0,0,0,.30);
+}
+.select{ height:48px; border-radius:16px !important; border:1px solid rgba(255,255,255,.22) !important;
+  background: linear-gradient(180deg, rgba(245,247,252,.92), rgba(210,218,230,.88)) !important;
+  color:#0b0f14 !important; box-shadow: 0 10px 22px rgba(0,0,0,.18);
+}
+.select option{ color:#0b0f14 }
+.qtext{ border-radius:22px; border:1px solid rgba(255,255,255,.18);
+  background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(0,0,0,.24));
+  box-shadow: 0 18px 36px rgba(0,0,0,.30); padding:16px 18px;
+}
+.choice{ border-radius:22px; border:1px solid rgba(255,255,255,.18);
+  background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(0,0,0,.26));
+  box-shadow: 0 18px 36px rgba(0,0,0,.28); min-height:78px;
+}
+.choiceText{ background: rgba(0,0,0,.50); border:1px solid rgba(255,255,255,.14); border-radius:16px; padding:10px 14px; }
+
+/* ===== V24 UI polish (no noise) ===== */
+.menuGrid{
+  display:grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  align-items: stretch;
+}
+.panel{
+  display:flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  min-height: 220px;
+}
+/* Outer frame for selects (double border) */
+.selectFrame{
+  position: relative;
+  border-radius: 18px;
+  padding: 8px;
+  background: linear-gradient(135deg, rgba(255,255,255,.55), rgba(160,170,190,.18), rgba(255,255,255,.35));
+  box-shadow: 0 12px 26px rgba(0,0,0,.22);
+  margin-top: 10px;
+}
+.selectFrame::before{
+  content:"";
+  position:absolute; inset:2px;
+  border-radius: 16px;
+  background: rgba(0,0,0,.18);
+  border: 1px solid rgba(255,255,255,.18);
+  pointer-events:none;
+}
+.selectFrame > .select{
+  position: relative;
+  z-index: 1;
+  width: 100%;
+}
+
+/* Right-side flag box */
+.choice{
+  display:flex;
+  align-items:center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.choiceText{
+  flex: 1 1 auto;
+  text-align: center;
+}
+.flagRight{
+  flex: 0 0 74px;
+  height: 48px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,.14);
+  background: rgba(0,0,0,.18);
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,.25);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size: 26px;
+  line-height: 1;
+  overflow:hidden;
+}
+.flagRight{
+  background-image: var(--flag-url);
+  background-size: cover;
+  background-position: center;
+}
+.choice .flagRight::after{
+  content: attr(data-emoji);
+}
+.choice[style*="flags/"] .flagRight::after{
+  content:"";
+}
+
+/* Nickname input */
+.nickname-box{
+  margin-top:14px;
+  padding:12px;
+  border-radius:12px;
+  background:linear-gradient(135deg,#e5e5e5,#f8f8f8);
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,.08), 0 6px 14px rgba(0,0,0,.12);
+}
+.nickname-box label{
+  display:block;
+  font-size:13px;
+  margin-bottom:6px;
+  color:#333;
+}
+.nickname-box input{
+  width:100%;
+  padding:10px 12px;
+  border-radius:10px;
+  border:1px solid #bbb;
+  font-size:14px;
+}
+.nickname-box input:focus{
+  outline:none;
+  border-color:#888;
+}

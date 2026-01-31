@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AYT Coğrafya</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="bg"></div>
+  <div class="shade"></div>
+
+  <main class="wrap">
+    <section class="card" id="menu">
+      <div class="brand">🌍 AYT Coğrafya | Atilla Aykaç • Rehberlik </div>
+      <h1>Ana Menü</h1>
+
+      <div class="menuGrid">
+        <div class="panel">
+          <div class="panelTitle">Kategori Seç</div>
+          <div class="selectFrame"><select id="categorySelect" class="select">
+            <option value="bolgeler">Bölgeler ve Ülkeler</option>
+          
+            <option value="ekosistem">Ekosistem ve Madde Döngüsü</option>
+            <option value="tr-ekonomi-cat">Türkiye'de Ekonomi, Tarım ve Madencilik</option>
+          </select>
+</div>
+
+          <div class="panelTitle" style="margin-top:12px">Alt Kategori Seç</div>
+          <div class="selectFrame"><select id="subCategorySelect" class="select">
+            <option value="">— Alt kategori seç —</option>
+          </select>
+        <div class="nickname-box">
+          <label for="nicknameInput">Kullanıcı Adı</label>
+          <input type="text" id="nicknameInput" placeholder="ör:atilla" maxlength="15" />
+        </div>
+    
+</div>
+        </div>
+
+        <div class="panel">
+          <div class="panelTitle">Ayarlar</div>
+
+          <div class="field">
+            <label class="lbl">Soru Sayısı</label>
+            <div class="selectFrame"><select id="countSelect" class="select">
+              <option value="5">5</option>
+              <option value="25">25</option>
+              <option value="50" selected>50</option>
+              <option value="75">75</option>
+              <option value="100">100</option>
+            </select>
+</div>
+          </div>
+
+          <div class="field">
+            <label class="lbl">Süre (dk)</label>
+            <div class="selectFrame"><select id="timeSelect" class="select">
+              <option value="5">5</option>
+              <option value="10" selected>10</option>
+              <option value="15">15</option>
+              <option value="20">20</option>
+            </select>
+</div>
+          </div>
+
+          <button class="btn startBtn" id="startBtn" disabled>Başla</button>
+          <div class="panelHint muted">Not: 75/100 soru seçiminde tekrar olabilir.</div>
+        </div>
+      </div>
+
+      <div class="panel leaderboardPanel" id="leaderboardBox">
+        <div class="panelTitle" style="display:flex;justify-content:space-between;align-items:center;gap:10px">
+          <span>🏆 Liderlik Tablosu</span>
+          <button class="btn ghost" id="clearBoardBtn" style="margin:0;padding:8px 10px;border-radius:12px">Sıfırla</button>
+        </div>
+        <div class="lbHead">
+          <div>#</div><div>İsim</div><div>Mod</div><div>Rozet</div><div>%</div><div>Süre</div>
+        </div>
+        <div id="leaderboardList"></div>
+        <div class="panelHint muted">Başarı yüzdesine göre sıralamanız oluşturulup, rozet tanımlanır.</div>
+      </div>
+
+      <div class="foot">Atilla Aykaç • Rehberlik</div>
+    </section>
+
+    <section class="card hidden" id="quiz">
+      <div class="toprow">
+        <div class="pill" id="qType">—</div>
+        <div class="pill" id="progress">—</div>
+        <div class="pill" id="timer">Süre: 10:00</div>
+        <div class="pill ok" id="statsCorrect">Doğru: 0</div>
+        <div class="pill bad" id="statsWrong">Yanlış: 0</div>
+        <div class="pill" id="statsPct">Başarı: 0%</div>
+      </div>
+
+      <h2 id="qText" class="qtext">—</h2>
+      <div id="choices" class="choices"></div>
+
+      <div class="bottomrow">
+        <button class="btn ghost" id="menuBtn">⟵ Ana Menü</button>
+        <button class="btn" id="nextBtn" disabled>Sonraki →</button>
+      </div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
